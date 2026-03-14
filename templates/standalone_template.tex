@@ -29,13 +29,16 @@
   %--- Top horizontal rail
   \draw (VTop) to[short] ++(5,0) coordinate (TopRight);
 
-  %--- Diode D: internal right branch (anode at top, cathode at DNode)
-  \draw (TopRight) to[D*, l=$D$] ++(0,-1.5) coordinate (DNode);
+  %--- Diode D: invert = cathode at top, anode at bottom (freewheeling direction)
+  %    + short wire below D pushes DNode lower for symmetry with Q
+  \draw (TopRight) to[D*, l=$D$, invert] ++(0,-1.5)
+    to[short] ++(0,-1) coordinate (DNode);
 
   %--- Inductor L: external parallel branch, right of main rectangle
-  %    3-unit gap from D gives uncluttered D||L arrangement
+  %    3-unit gap; (LTop|-DNode) auto-spans full height to match DNode level
+  %    i>^= puts iL label on LEFT side, l_= keeps L label on RIGHT → no clutter
   \draw (TopRight) to[short] ++(3,0) coordinate (LTop);
-  \draw (LTop) to[L, l_=$L$, i>_=$i_L$] (LTop|-DNode) coordinate (LBot);
+  \draw (LTop) to[L, l_=$L$, i>^=$i_L$] (LTop|-DNode) coordinate (LBot);
   \draw (LBot) -- (DNode);
 
   %--- IGBT Q: vertical orientation, collector (C) anchored at DNode
