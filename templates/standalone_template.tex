@@ -19,6 +19,7 @@
 \tikzstyle{every path}=[line width=0.9pt, line cap=round, line join=round]
 
 \begin{document}
+\begin{minipage}{0.48\textwidth}
 \begin{circuitikz}
 
   \coordinate (VBottom) at (0,0);
@@ -66,9 +67,11 @@
   \draw (VgTop|-VBottom) -- (VBottom);
 
 \end{circuitikz}
-
-% --- Gate drive timing diagram: double pulse waveform
-\begin{tikzpicture}[scale=0.9]
+\end{minipage}
+\hfill
+\begin{minipage}{0.48\textwidth}
+\centering
+\begin{tikzpicture}[scale=0.85]
   % Time axis
   \draw[thick, ->] (0,0) -- (10,0) node[right] {$t$};
   % Voltage axis
@@ -98,5 +101,6 @@
   \draw (4,-0.2) -- (4,0.2); \node[below] at (4,-0.3) {$t_3$};
   \draw (5.5,-0.2) -- (5.5,0.2); \node[below] at (5.5,-0.3) {$t_4$};
 \end{tikzpicture}
+\end{minipage}
 
 \end{document}
