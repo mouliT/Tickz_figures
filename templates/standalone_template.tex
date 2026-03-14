@@ -1,33 +1,35 @@
-\documentclass[tikz, border=4pt]{standalone}
+% Standalone circuit figure template
+% Copy this file, rename it, and fill in the circuit below.
 
-% --- Core packages ---
-\usepackage{circuitikz}
-\usepackage{pgfplots}
-\pgfplotsset{compat=1.18}
-\usepackage{siunitx}
-\usepackage{amsmath}
-\usepackage{xcolor}
+\documentclass[border=5pt]{standalone}
+\usepackage{tikz}
+\usepackage[american,cuteinductors,smartlabels]{circuitikz}
 
-% --- TikZ libraries ---
-\usetikzlibrary{
-  arrows.meta,
-  positioning,
-  calc,
-  shapes.geometric,
-  decorations.pathreplacing,
-  patterns
-}
+% Component dimensions (adjust per figure if needed)
+\ctikzset{bipoles/thickness=0.7}
+\ctikzset{bipoles/length=1.5cm}
+\ctikzset{bipoles/resistor/width=0.7}
+\ctikzset{bipoles/resistor/height=0.25}
+\ctikzset{bipoles/diode/height=0.3}
+\ctikzset{bipoles/diode/width=0.3}
+\ctikzset{tripoles/thickness=0.7}
+\ctikzset{bipoles/battery1/height=0.7}
 
-% --- CircuiTikZ global settings ---
-\ctikzset{
-  voltage/distance from node = .5,
-  bipoles/length = 1cm,          % default component size
-}
+% Global styles
+\tikzstyle{every node}=[font=\Large]
+\tikzstyle{every path}=[line width=0.9pt, line cap=round, line join=round]
 
 \begin{document}
-\begin{tikzpicture}
+\begin{circuitikz}
 
-  % Your figure here
+  % Step 1: Define all key coordinates
+  \coordinate (Origin) at (0,0);
 
-\end{tikzpicture}
+  % Step 2: Draw connections using ++ relative moves
+  % \draw (Origin) to[battery1, l=$V_{in}$, invert] ++(0,3) coordinate (VTop);
+
+  % Step 3: Transistors via \node[nigbt, anchor=C, rotate=90]
+  % Step 4: Vertical drops via (NodeName|-GroundRef) intersection syntax
+
+\end{circuitikz}
 \end{document}
