@@ -1,11 +1,10 @@
-% Standalone circuit figure template
-% Copy this file, rename it, and fill in the circuit below.
+% Switching cell: Vdc -- D -- L -- Q (IGBT) -- GND
+% Gate drive: Vg through Rg to IGBT gate, with ig current label
 
 \documentclass[border=5pt]{standalone}
 \usepackage{tikz}
 \usepackage[american,cuteinductors,smartlabels]{circuitikz}
 
-% Component dimensions (adjust per figure if needed)
 \ctikzset{bipoles/thickness=0.7}
 \ctikzset{bipoles/length=1.5cm}
 \ctikzset{bipoles/resistor/width=0.7}
@@ -15,21 +14,52 @@
 \ctikzset{tripoles/thickness=0.7}
 \ctikzset{bipoles/battery1/height=0.7}
 
-% Global styles
 \tikzstyle{every node}=[font=\Large]
 \tikzstyle{every path}=[line width=0.9pt, line cap=round, line join=round]
 
 \begin{document}
 \begin{circuitikz}
 
-  % Step 1: Define all key coordinates
-  \coordinate (Origin) at (0,0);
+  \coordinate (VBottom) at (0,0);
 
-  % Step 2: Draw connections using ++ relative moves
-  % \draw (Origin) to[battery1, l=$V_{in}$, invert] ++(0,3) coordinate (VTop);
+  %--- Input voltage source Vdc (+ at top via invert, consistent with reference style)
+  \draw (VBottom) to[battery1, l=$V_{dc}$, invert] ++(0,6) coordinate (VTop);
 
-  % Step 3: Transistors via \node[nigbt, anchor=C, rotate=90]
-  % Step 4: Vertical drops via (NodeName|-GroundRef) intersection syntax
+  %--- Top horizontal rail
+  \draw (VTop) to[short] ++(5,0) coordinate (TopRight);
+
+  %--- Series diode D: anode at TopRight (top), cathode pointing down
+  %    to[D*] without invert = current flows in draw direction = downward = anode at top
+  \draw (TopRight) to[D*, l=$D$] ++(0,-1.5) coordinate (DLjunc);
+
+  %--- Series inductor L: current iL flows downward through L
+  \draw (DLjunc) to[L, l_=$L$, i>_=$i_L$] ++(0,-1.5) coordinate (IndBot);
+
+  %--- IGBT Q: vertical orientation, collector (C) anchored at top of body
+  %    Pattern from Boost.tex: to[short]++(0,-delta) then node[nigbt, anchor=C]
+  \draw (IndBot) to[short] ++(0,-0.5)
+    node[nigbt, anchor=C,
+         label={[xshift=1.2cm, yshift=0] \normalsize $Q$}] (Q1) {};
+
+  %--- IGBT emitter (E) drops straight to bottom rail
+  \draw (Q1.E) -- (Q1.E|-VBottom) coordinate (QGnd);
+
+  %--- Close the main power loop: bottom rail
+  \draw (QGnd) -- (VBottom);
+
+  %--- Gate drive circuit
+  %    Q1.B = gate terminal (extends left from IGBT body)
+  %    i<_ = current arrow pointing RIGHT (into gate, against the leftward draw direction)
+  \draw (Q1.B) to[short, i<_=$i_g$] ++(-1.5,0) coordinate (GateLeft)
+    to[R, l=$R_g$] ++(-1.5,0) coordinate (VgTop);
+
+  %--- Gate voltage source Vg: drawn upward from ground to VgTop
+  %    invert = + at top (VgTop side) = drives gate positive w.r.t. source
+  %    consistent with Boost.tex: upward source + invert = + at top
+  \draw (VgTop|-VBottom) to[V, l=$V_g$, invert] (VgTop);
+
+  %--- Connect Vg ground terminal to main bottom rail
+  \draw (VgTop|-VBottom) -- (VBottom);
 
 \end{circuitikz}
 \end{document}
