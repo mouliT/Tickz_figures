@@ -136,13 +136,24 @@ Without `invert`, `+` appears at the bottom (the `from` node). **Always use `inv
 
 ### Rule 7: Diode orientation — use `D*` for filled (solid) diodes
 ```latex
-% Freewheeling diode (conducts upward): invert flips anode to bottom
-\draw (DiodeTop) to[D*, invert] (DiodeTop|-VBottom);
+% Freewheeling diode drawn DOWNWARD but conducting UPWARD (cathode at top):
+\draw (TopNode) to[D*, invert] ++(0,-1.5) coordinate (DNode);
+%   invert on downward draw → cathode at top (TopNode), anode at bottom (DNode) ✓
 
-% Series diode (conducts in draw direction, left to right):
-\draw (NodeA) to[D*] (NodeB);
+% Series diode conducting DOWNWARD (anode at top, cathode at bottom):
+\draw (TopNode) to[D*] ++(0,-1.5) coordinate (DNode);
+%   no invert on downward draw → anode at top, cathode at bottom ✓
 ```
 `D*` = filled black diode (preferred for power electronics). `D` = outline diode.
+
+### Rule 7b: Vertical inductor label placement — avoid same-side clutter
+```latex
+% WRONG: both labels on same side — cluttered
+\draw (A) to[L, l_=$L$, i>_=$i_L$] (B);
+
+% CORRECT: labels on opposite sides
+\draw (A) to[L, l_=$L$, i>^=$i_L$] (B);  % L right, iL left
+```
 
 ### Rule 8: Labels — use `l_=` (below), `l^=` (above), `v^=`, `i>_=`
 ```latex
