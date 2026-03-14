@@ -1,0 +1,47 @@
+\documentclass[tikz, border=4pt]{standalone}
+
+\usepackage{circuitikz}
+\usepackage{siunitx}
+\usepackage{amsmath}
+
+\usetikzlibrary{arrows.meta, positioning, calc}
+
+\ctikzset{bipoles/length=1.2cm}
+
+\begin{document}
+\begin{tikzpicture}[thick]
+
+  % Input voltage source
+  \draw (0,0) to[V, v=$V_{in}$, invert] (0,3);
+
+  % Top rail
+  \draw (0,3) -- (1,3);
+
+  % Switch (MOSFET)
+  \draw (1,3) to[Tnmos, n=Q1] (1,1.5);
+
+  % Freewheeling diode
+  \draw (1,1.5) to[D, l=$D_1$, invert] (1,0);
+
+  % Inductor
+  \draw (1,1.5) -- (2,1.5)
+        to[L, l=$L$, l2_=$\SI{100}{\micro\henry}$] (4,1.5);
+
+  % Output capacitor
+  \draw (4,1.5) to[C, l=$C$, l2_=$\SI{100}{\micro\farad}$] (4,0);
+
+  % Load
+  \draw (4,1.5) -- (5.5,1.5)
+        to[R, l=$R_L$] (5.5,0);
+
+  % Bottom rail (ground)
+  \draw (0,0) -- (5.5,0);
+
+  % Output voltage label
+  \draw[<->, >=Latex] (5.8,0) -- (5.8,1.5) node[midway, right] {$V_{out}$};
+
+  % Gate drive label
+  \draw (Q1.gate) -- ++(-0.7,0) node[left] {$g$};
+
+\end{tikzpicture}
+\end{document}

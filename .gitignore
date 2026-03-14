@@ -1,0 +1,15 @@
+# LaTeX build artifacts
+*.aux
+*.log
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.out
+*.toc
+*.pdf
+*.dvi
+*.ps
+
+# Overleaf / editor
+.DS_Store
+Thumbs.db
