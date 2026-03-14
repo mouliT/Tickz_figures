@@ -66,4 +66,40 @@
   \draw (VgTop|-VBottom) -- (VBottom);
 
 \end{circuitikz}
+
+% --- Gate drive timing diagram: double pulse pattern
+\begin{tikzpicture}[xscale=1.2, yscale=0.8]
+  % Axes
+  \draw[thick, ->] (0,0) -- (9,0) node[right, font=\Large] {$t$};
+  \draw[thick, ->] (0,0) -- (0,3.5) node[above, font=\Large] {$V_g$};
+
+  % Voltage reference lines
+  \draw[gray, dashed] (0,2.5) -- (9,2.5) node[right, font=\normalsize, gray] {Peak};
+  \draw[gray, dashed] (0,0) -- (9,0);
+
+  % First pulse: t=1 to t=2.5
+  \draw[line width=1.5pt] (1,0) -- (1,2.5) -- (2.5,2.5) -- (2.5,0);
+  \fill[black, opacity=0.1] (1,0) -- (1,2.5) -- (2.5,2.5) -- (2.5,0);
+
+  % Dead time (low)
+  \draw[line width=1.5pt] (2.5,0) -- (4,0);
+
+  % Second pulse: t=4 to t=5.5
+  \draw[line width=1.5pt] (4,0) -- (4,2.5) -- (5.5,2.5) -- (5.5,0);
+  \fill[black, opacity=0.1] (4,0) -- (4,2.5) -- (5.5,2.5) -- (5.5,0);
+
+  % Trailing edge
+  \draw[line width=1.5pt] (5.5,0) -- (8,0);
+
+  % Time labels
+  \node[below, font=\normalsize] at (1,-.3) {$t_1$};
+  \node[below, font=\normalsize] at (2.5,-.3) {$t_2$};
+  \node[below, font=\normalsize] at (4,-.3) {$t_3$};
+  \node[below, font=\normalsize] at (5.5,-.3) {$t_4$};
+
+  % Voltage label
+  \node[left, font=\normalsize] at (-.3,2.5) {$V_g^{max}$};
+  \node[left, font=\normalsize] at (-.3,0) {$0$};
+\end{tikzpicture}
+
 \end{document}
