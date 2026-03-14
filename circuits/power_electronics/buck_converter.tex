@@ -12,7 +12,7 @@
 \begin{tikzpicture}[thick]
 
   % Input voltage source
-  \draw (0,0) to[V, v=$V_{in}$, invert] (0,3);
+  \draw (0,0) to[V, v=$V_{in}$] (0,3);
 
   % Top rail
   \draw (0,3) -- (1,3);
@@ -25,10 +25,10 @@
 
   % Inductor
   \draw (1,1.5) -- (2,1.5)
-        to[L, l=$L$, l2_=$\SI{100}{\micro\henry}$] (4,1.5);
+        to[L, l=$L$, l_=$\SI{100}{\micro\henry}$] (4,1.5);
 
   % Output capacitor
-  \draw (4,1.5) to[C, l=$C$, l2_=$\SI{100}{\micro\farad}$] (4,0);
+  \draw (4,1.5) to[C, l=$C$, l_=$\SI{100}{\micro\farad}$] (4,0);
 
   % Load
   \draw (4,1.5) -- (5.5,1.5)

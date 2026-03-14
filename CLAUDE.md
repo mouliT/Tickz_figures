@@ -84,7 +84,7 @@ to[cute inductor]          % inductor (alternative style)
 
 ### Labeling
 ```latex
-to[R, l=$R_1$, l2_=$\SI{10}{\kilo\ohm}$]   % label + value below
+to[R, l=$R_1$, l_=$\SI{10}{\kilo\ohm}$]    % label + value below
 to[V, v=$V_{in}$]                            % voltage label (with arrow)
 to[R, i>=$i_L$]                              % current direction label
 ```
