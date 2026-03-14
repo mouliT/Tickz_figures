@@ -29,10 +29,9 @@
   %--- Top horizontal rail
   \draw (VTop) to[short] ++(5,0) coordinate (TopRight);
 
-  %--- Diode D: invert = cathode at top, anode at bottom (freewheeling direction)
-  %    + short wire below D pushes DNode lower for symmetry with Q
-  \draw (TopRight) to[D*, l=$D$, invert] ++(0,-1.5)
-    to[short] ++(0,-1) coordinate (DNode);
+  %--- Diode D: spans full 2.5 units to align visually with inductor L (also 2.5 units)
+  %    invert = cathode at top, anode at bottom (freewheeling direction)
+  \draw (TopRight) to[D*, l=$D$, invert] ++(0,-2.5) coordinate (DNode);
 
   %--- Inductor L: external parallel branch, right of main rectangle
   %    3-unit gap; (LTop|-DNode) auto-spans full height to match DNode level
