@@ -33,17 +33,15 @@
   \draw (TopRight) to[D*, l=$D$] ++(0,-1.5) coordinate (DNode);
 
   %--- Inductor L: external parallel branch, right of main rectangle
-  %    Top of L connects to TopRight via horizontal short
-  %    Bottom of L connects back to DNode (same level, parallel with D)
-  \draw (TopRight) to[short] ++(1.5,0) coordinate (LTop);
+  %    3-unit gap from D gives uncluttered D||L arrangement
+  \draw (TopRight) to[short] ++(3,0) coordinate (LTop);
   \draw (LTop) to[L, l_=$L$, i>_=$i_L$] (LTop|-DNode) coordinate (LBot);
   \draw (LBot) -- (DNode);
 
   %--- IGBT Q: vertical orientation, collector (C) anchored at DNode
-  %    Pattern from Boost.tex: to[short]++(0,-delta) then node[nigbt, anchor=C]
   \draw (DNode) to[short] ++(0,-0.5)
     node[nigbt, anchor=C,
-         label={[xshift=1.2cm, yshift=0] \normalsize $Q$}] (Q1) {};
+         label={[xshift=0.5cm, yshift=0] \normalsize $Q$}] (Q1) {};
 
   %--- IGBT emitter (E) drops straight to bottom rail
   \draw (Q1.E) -- (Q1.E|-VBottom) coordinate (QGnd);
